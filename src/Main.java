@@ -10,14 +10,17 @@ public class Main {
         Contact c1 = new Contact("def", "Rajesh", "Kalua",
                 "800188212", "rajesh@gmail.com", "Udaipur", false);
         Contact c2 = new Contact("ghi", "Rohan", "Kalua",
-                "800188212", "rajesh1@gmail.com", "Udaipur", false);
+                "800188214", "rajesh1@gmail.com", "Udaipur", false);
 //        System.out.println("Contact created is " + c.getContact());
         ContactManagerApp add = new ContactManagerApp();
         add.addContact(c);
         add.addContact(c1);
         add.addContact(c2);
+//        add.printCityWiseCount();
+//        add.printAllPhones();
         List<Contact> contacts = add.getAllContacts();
-        contacts.forEach(System.out::println);
+//        contacts.forEach(System.out::println);
+        System.out.println(add.countContactsByCity(add.getAllContacts()));
 
 //        List<Contact> searchedContact = add.searchByName("Rahul");
 //        searchedContact.forEach( contact -> System.out.println(contact.getContact()));
