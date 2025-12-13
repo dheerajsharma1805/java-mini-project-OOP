@@ -144,4 +144,59 @@ public class ContactManagerApp {
         return false;
     }
 
+    //Sorting methods
+
+    public List<Contact> getContactsSortedByName() {
+        List<Contact> copy = new ArrayList<>(contacts);
+//        copy.sort(null); // uses Comparable (natural order)
+        Collections.sort(copy);
+        return copy;
+    }
+
+    public List<Contact> getContactsSortedByCityThenName() {
+        List<Contact> copy = new ArrayList<>(contacts);
+
+        copy.sort(
+                Comparator
+                        .comparing(Contact::getCity, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Contact::getName, String.CASE_INSENSITIVE_ORDER)
+        );
+
+        return copy;
+    }
+
+    public List<Contact> getContactsSortedByEmailLambda() {
+        List<Contact> copy = new ArrayList<>(contacts);
+
+        copy.sort((c1, c2) -> {
+            String e1 = c1.getEmail();
+            String e2 = c2.getEmail();
+            if (e1 == null && e2 == null) return 0;
+            if (e1 == null) return -1;
+            if (e2 == null) return 1;
+            return e1.compareToIgnoreCase(e2);
+        });
+
+        return copy;
+    }
+
+    public List<Contact> getContactsSortedByEmail() {
+        List<Contact> copy = new ArrayList<>(contacts);
+
+        copy.sort(new Comparator<Contact>() {
+            @Override
+            public int compare(Contact c1, Contact c2) {
+                if (c1.getEmail() == null && c2.getEmail() == null) return 0;
+                if (c1.getEmail() == null) return -1;
+                if (c2.getEmail() == null) return 1;
+                return c1.getEmail().compareToIgnoreCase(c2.getEmail());
+            }
+        });
+
+        return copy;
+    }
+
+
+
 }
+

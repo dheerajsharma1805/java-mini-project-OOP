@@ -1,19 +1,19 @@
-public class Contact {
+import java.util.List;
+
+public class Contact extends Person implements Comparable<Contact> {
     private String id;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
     private String primaryPhone;
     private String email;
-    private String city;
+//    private String city;
     private boolean favorite;
 
     public Contact(String id, String firstName, String lastName, String primaryPhone, String email, String city,boolean favorite ) {
+        super(firstName, lastName, city);
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.primaryPhone = primaryPhone;
         this.email = email;
-        this.city = city;
         this.favorite = favorite;
     }
 
@@ -22,6 +22,7 @@ public class Contact {
     }
 
     public String getName() {
+        System.out.println("first " + this.firstName);
         return this.firstName + " " + this.lastName;
     }
 
@@ -88,6 +89,16 @@ public class Contact {
         );
     }
 
+    @Override
+    public int compareTo(Contact o) {
+        if (o == null) return 1;
+        int fstNmeComp = firstName.compareToIgnoreCase(o.firstName);
+        if (fstNmeComp != 0) {
+            return fstNmeComp;
+        }
+
+        return this.lastName.compareToIgnoreCase(o.lastName);
+    }
 
     // Set and Map will use below two methods to get uniqueness, without below methods they will not solve the problem of duplicates.
     @Override
@@ -103,4 +114,6 @@ public class Contact {
     public int hashCode() {
         return primaryPhone != null ? primaryPhone.hashCode() : 0;
     }
+
+
 }
